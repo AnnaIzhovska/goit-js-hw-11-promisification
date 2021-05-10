@@ -5,35 +5,35 @@ const randomIntegerFromInterval = (min, max) => {
   };
   
   const makeTransaction = (transaction) => {
-  
-    return new Promice((resolve, reject) => {
-      const DELAY = randomIntegerFromInterval(200, 500);
+    const DELAY = randomIntegerFromInterval(200, 500);
 
-      setTimeout(() => {    
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
         const canProcess = Math.random() > 0.3;
         if (canProcess) {
-          resolve(transaction.id, DELAY);
+          resolve({ id: transaction.id, time: DELAY });
         }
-          reject(transaction.id);
+        reject(transaction.id);
       }, DELAY);
-    })
+    });
   };
   
-  const logSuccess = (id, time) => {
+  const logSuccess = ({ id, time }) => {
     console.log(`Transaction ${id} processed in ${time}ms`);
   };
   
-  const logError = id => {
+  const logError = (id) => {
     console.warn(`Error processing transaction ${id}. Please try again later.`);
   };
   
+
   /*
    * Работает так
    */
-  makeTransaction({ id: 70, amount: 150 }, logSuccess, logError);
-  makeTransaction({ id: 71, amount: 230 }, logSuccess, logError);
-  makeTransaction({ id: 72, amount: 75 }, logSuccess, logError);
-  makeTransaction({ id: 73, amount: 100 }, logSuccess, logError);
+  // makeTransaction({ id: 70, amount: 150 }, logSuccess, logError);
+  // makeTransaction({ id: 71, amount: 230 }, logSuccess, logError);
+  // makeTransaction({ id: 72, amount: 75 }, logSuccess, logError);
+  // makeTransaction({ id: 73, amount: 100 }, logSuccess, logError);
   /*
    * Должно работать так
    */
